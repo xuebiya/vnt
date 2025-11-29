@@ -392,6 +392,14 @@ impl<Device: DeviceWrite> ClientPacketHandler<Device> {
                     self.punch_sender.send(false, source, peer_nat_info);
                 }
             }
+            other_turn_packet::Protocol::KcpSrc | other_turn_packet::Protocol::KcpDst => {
+                // KCP proxy packets - stub implementation
+                log::trace!("KCP proxy packet from {:?}", source);
+            }
+            other_turn_packet::Protocol::QuicProxy => {
+                // QUIC proxy packets - stub implementation
+                log::trace!("QUIC proxy packet from {:?}", source);
+            }
             other_turn_packet::Protocol::Unknown(e) => {
                 log::warn!("不支持的转发协议 {:?},source:{:?}", e, source);
             }
