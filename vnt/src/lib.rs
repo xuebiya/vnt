@@ -22,11 +22,11 @@ pub mod compression;
 pub use packet;
 
 // Re-export KCP proxy types when feature is enabled
-#[cfg(feature = "kcp_proxy")]
+#[cfg(all(feature = "ip_proxy", feature = "kcp_proxy"))]
 pub use ip_proxy::kcp_proxy::{KcpProxy, KcpProxyDst, KcpProxySrc};
 
 // Re-export QUIC proxy types when feature is enabled
-#[cfg(feature = "quic_proxy")]
+#[cfg(all(feature = "ip_proxy", feature = "quic_proxy"))]
 pub use ip_proxy::quic_proxy::{QuicProxy, QuicProxyDst, QuicProxySrc};
 
 // Re-export proxy configuration
