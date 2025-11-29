@@ -39,6 +39,7 @@ anyhow = "1.0.82"
 dns-parser = "0.8.0"
 
 tokio = { version = "1.46.1", features = ["full"] }
+tokio-util = { version = "0.7.9", features = ["codec", "net", "io"] }
 
 lz4_flex = { version = "0.11", default-features = false, optional = true }
 zstd = { version = "0.13.1", optional = true }
@@ -51,6 +52,17 @@ rustls = { version = "0.23.0", features = ["ring"], default-features = false, op
 network-interface = "2.0.0"
 
 futures-util = "0.3.30"
+async-trait = "0.1.74"
+dashmap = "6.0"
+chrono = "0.4.37"
+pnet = { version = "0.35.0", features = ["serde"], optional = true }
+
+# KCP proxy dependencies
+kcp-sys = { git = "https://github.com/EasyTier/kcp-sys", rev = "71eff18c573a4a71bf99c7fabc6a8b9f211c84c1", optional = true }
+
+# QUIC proxy dependencies
+quinn = { version = "0.11.8", optional = true, features = ["ring"] }
+rcgen = { version = "0.12.1", optional = true }
 [target.'cfg(target_os = "windows")'.dependencies]
 winreg = "0.55.0"
 libloading = "0.8.0"
@@ -79,11 +91,15 @@ sm4_cbc = ["libsm"]
 aes_gcm = ["aes-gcm"]
 chacha20_poly1305 = ["chacha20poly1305", "chacha20"]
 server_encrypt = ["aes-gcm", "rsa", "spki"]
-ip_proxy = []
+ip_proxy = ["pnet"]
 port_mapping = []
 lz4_compress = ["lz4_flex"]
 zstd_compress = ["zstd"]
 integrated_tun = ["tun-rs"]
 upnp = ["igd"]
+# KCP proxy feature - provides reliable UDP transport over VPN tunnel
+kcp_proxy = ["kcp-sys", "pnet"]
+# QUIC proxy feature - provides QUIC-based transport over VPN tunnel
+quic_proxy = ["quinn", "rustls", "rcgen", "pnet"]
 ws = ["tokio-tungstenite"]
 wss = ["ws", "tokio-tungstenite/rustls-tls-native-roots", "tokio-tungstenite/rustls-tls-webpki-roots", "rustls"]

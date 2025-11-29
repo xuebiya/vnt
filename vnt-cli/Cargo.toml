@@ -43,6 +43,8 @@ wss = ["vnt/wss", "common/wss"]
 log = ["common/log"]
 command = ["common/command"]
 file_config = ["common/file_config"]
+kcp_proxy = ["vnt/kcp_proxy", "common/kcp_proxy"]
+quic_proxy = ["vnt/quic_proxy", "common/quic_proxy"]
 [build-dependencies]
 rand = "0.8.5"
 chrono = "0.4.23"

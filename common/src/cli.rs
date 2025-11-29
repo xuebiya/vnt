@@ -79,6 +79,18 @@ pub fn parse_args_config() -> anyhow::Result<Option<(Config, Vec<String>, bool)>
     opts.optopt("", "local-dev", "指定本地ipv4网卡名称", "<NAME>");
     opts.optflag("", "disable-stats", "关闭流量统计");
     opts.optflag("", "allow-wg", "允许接入WireGuard");
+    // KCP proxy options
+    #[cfg(feature = "kcp_proxy")]
+    opts.optflag("", "kcp-proxy", "启用KCP代理(低延迟可靠传输)");
+    #[cfg(feature = "kcp_proxy")]
+    opts.optflag("", "disable-kcp-input", "禁用KCP代理入站");
+    // QUIC proxy options
+    #[cfg(feature = "quic_proxy")]
+    opts.optflag("", "quic-proxy", "启用QUIC代理(安全多路复用)");
+    #[cfg(feature = "quic_proxy")]
+    opts.optflag("", "disable-quic-input", "禁用QUIC代理入站");
+    #[cfg(feature = "quic_proxy")]
+    opts.optopt("", "quic-port", "QUIC监听端口(默认自动分配)", "<port>");
     //"后台运行时,查看其他设备列表"
     opts.optflag("", "add", "后台运行时,添加地址");
     opts.optflag("", "list", "后台运行时,查看其他设备列表");
@@ -375,6 +387,11 @@ fn get_description(key: &str, language: &str) -> String {
         ("--local-dev", ("本地出口网卡的名称", "name of local export network card")),
         ("--disable-stats", ("关闭流量统计", "Disable traffic statistics")),
         ("--allow-wg", ("允许接入WireGuard客户端", "Allow access to WireGuard client")),
+        ("--kcp-proxy", ("启用KCP代理,提供低延迟可靠传输", "Enable KCP proxy for low-latency reliable transport")),
+        ("--disable-kcp-input", ("禁用KCP代理入站连接", "Disable KCP proxy inbound connections")),
+        ("--quic-proxy", ("启用QUIC代理,提供安全多路复用传输", "Enable QUIC proxy for secure multiplexed transport")),
+        ("--disable-quic-input", ("禁用QUIC代理入站连接", "Disable QUIC proxy inbound connections")),
+        ("--quic-port <port>", ("指定QUIC监听端口,默认自动分配", "Specify QUIC listen port, auto-assign by default")),
         ("--list", ("后台运行时,查看其他设备列表", "View list of other devices when running in background")),
         ("--all", ("后台运行时,查看其他设备完整信息", "View complete information of other devices when running in background")),
         ("--info", ("后台运行时,查看当前设备信息", "View information of current device when running in background")),
@@ -570,6 +587,32 @@ fn print_usage(program: &str, _opts: Options) {
         "  --allow-wg          {}",
         get_description("--allow-wg", &language)
     );
+    #[cfg(feature = "kcp_proxy")]
+    {
+        println!(
+            "  --kcp-proxy         {}",
+            get_description("--kcp-proxy", &language)
+        );
+        println!(
+            "  --disable-kcp-input {}",
+            get_description("--disable-kcp-input", &language)
+        );
+    }
+    #[cfg(feature = "quic_proxy")]
+    {
+        println!(
+            "  --quic-proxy        {}",
+            get_description("--quic-proxy", &language)
+        );
+        println!(
+            "  --disable-quic-input {}",
+            get_description("--disable-quic-input", &language)
+        );
+        println!(
+            "  --quic-port <port>  {}",
+            get_description("--quic-port <port>", &language)
+        );
+    }
     println!();
     #[cfg(feature = "command")]
     {

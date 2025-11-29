@@ -40,6 +40,8 @@ command = []
 file_config = []
 log = ["log4rs"]
 integrated_tun = ["vnt/integrated_tun"]
+kcp_proxy = ["vnt/kcp_proxy"]
+quic_proxy = ["vnt/quic_proxy"]
 
 [build-dependencies]
 rand = "0.8.5"
