@@ -9,7 +9,6 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
-  CARGO_INCREMENTAL: 0
 
 jobs:
   build-windows:
@@ -26,8 +25,9 @@ jobs:
         with:
           targets: ${{ matrix.target }}
       
-      - name: Build vnt-cli (default features)
-        run: cargo build --release --package vnt-cli --target ${{ matrix.target }}
+      - name: Build vnt-cli
+        shell: bash
+        run: cargo build --package vnt-cli --release --target ${{ matrix.target }} --features "ring-cipher,ws"
       
       - name: Upload Windows artifacts
         uses: actions/upload-artifact@v4
@@ -49,8 +49,8 @@ jobs:
         with:
           targets: ${{ matrix.target }}
       
-      - name: Build vnt-cli (default features)
-        run: cargo build --release --package vnt-cli --target ${{ matrix.target }}
+      - name: Build vnt-cli
+        run: cargo build --package vnt-cli --release --target ${{ matrix.target }} --features "ring-cipher,ws"
       
       - name: Upload Linux artifacts
         uses: actions/upload-artifact@v4
