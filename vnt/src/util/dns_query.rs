@@ -266,7 +266,7 @@ fn check_for_redirect(domain: &String) -> anyhow::Result<Option<String>> {
                 println!("HTTP Status Code: {}", resp.status_code());
                 resp
             }
-            Err(e) => {
+            Err(_e) => {
                 return Ok(last_redirect_url);
             }
         };
