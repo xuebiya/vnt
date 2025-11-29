@@ -63,6 +63,7 @@ kcp-sys = { git = "https://github.com/EasyTier/kcp-sys", rev = "71eff18c573a4a71
 # QUIC proxy dependencies
 quinn = { version = "0.11.8", optional = true, features = ["ring"] }
 rcgen = { version = "0.12.1", optional = true }
+socket2 = { version = "0.5", optional = true }
 [target.'cfg(target_os = "windows")'.dependencies]
 winreg = "0.55.0"
 libloading = "0.8.0"
@@ -100,6 +101,6 @@ upnp = ["igd"]
 # KCP proxy feature - provides reliable UDP transport over VPN tunnel
 kcp_proxy = ["kcp-sys", "pnet"]
 # QUIC proxy feature - provides QUIC-based transport over VPN tunnel
-quic_proxy = ["quinn", "rustls", "rcgen", "pnet"]
+quic_proxy = ["quinn", "rustls", "rcgen", "pnet", "socket2"]
 ws = ["tokio-tungstenite"]
 wss = ["ws", "tokio-tungstenite/rustls-tls-native-roots", "tokio-tungstenite/rustls-tls-webpki-roots", "rustls"]

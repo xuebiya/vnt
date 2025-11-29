@@ -18,7 +18,7 @@ use parking_lot::Mutex;
 use quinn::crypto::rustls::QuicClientConfig;
 use quinn::udp::RecvMeta;
 use quinn::{
-    congestion::BbrConfig, AsyncUdpSocket, ClientConfig, Endpoint, EndpointConfig,
+    congestion::BbrConfig, AsyncUdpSocket, ClientConfig, Connection, Endpoint, EndpointConfig,
     Incoming, ServerConfig, TransportConfig, UdpPoller,
 };
 use rustls::pki_types::{CertificateDer, PrivateKeyDer, ServerName, UnixTime};

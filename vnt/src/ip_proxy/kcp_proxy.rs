@@ -442,7 +442,8 @@ impl KcpProxy {
             let transport_protocol = net_packet.transport_protocol();
             let payload = net_packet.payload();
 
-            match KcpPacketType::from(transport_protocol) {
+            let packet_type = KcpPacketType::from(transport_protocol);
+            match packet_type {
                 KcpPacketType::KcpSrc => {
                     // This is a source packet, process on destination side
                     if let Some(ref dst) = self.dst_proxy {
