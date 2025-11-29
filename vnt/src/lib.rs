@@ -23,11 +23,11 @@ pub use packet;
 
 // Re-export KCP proxy types when feature is enabled
 #[cfg(all(feature = "ip_proxy", feature = "kcp_proxy"))]
-pub use ip_proxy::kcp_proxy::{KcpProxy, KcpProxyDst, KcpProxySrc};
+pub use ip_proxy::kcp_proxy::KcpProxy;
 
 // Re-export QUIC proxy types when feature is enabled
 #[cfg(all(feature = "ip_proxy", feature = "quic_proxy"))]
-pub use ip_proxy::quic_proxy::{QuicProxy, QuicProxyDst, QuicProxySrc};
+pub use ip_proxy::quic_proxy::QuicProxy;
 
 // Re-export proxy configuration
 #[cfg(feature = "ip_proxy")]

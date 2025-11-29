@@ -97,9 +97,9 @@ lz4_compress = ["lz4_flex"]
 zstd_compress = ["zstd"]
 integrated_tun = ["tun-rs"]
 upnp = ["igd"]
-# KCP proxy feature - provides reliable UDP transport over VPN tunnel
-kcp_proxy = ["kcp-sys", "ip_proxy"]
-# QUIC proxy feature - provides QUIC-based transport over VPN tunnel
-quic_proxy = ["quinn", "rustls", "rcgen", "ip_proxy"]
+# KCP proxy feature - provides reliable UDP transport over VPN tunnel (stub)
+kcp_proxy = ["ip_proxy"]
+# QUIC proxy feature - provides QUIC-based transport over VPN tunnel (stub)
+quic_proxy = ["ip_proxy"]
 ws = ["tokio-tungstenite"]
 wss = ["ws", "tokio-tungstenite/rustls-tls-native-roots", "tokio-tungstenite/rustls-tls-webpki-roots", "rustls"]
